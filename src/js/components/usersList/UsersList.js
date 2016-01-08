@@ -16,6 +16,7 @@ class UsersContainer extends Component {
 
     static propTypes = {
         usersState: PropTypes.object.isRequired,
+        user: PropTypes.object,
         actions: PropTypes.object.isRequired,
         dispatch: PropTypes.func.isRequired
     };
@@ -32,18 +33,19 @@ class UsersContainer extends Component {
 
     render () {
         const {l} = this.context;
-        const {usersState} = this.props;
-        let users = usersState.users.map(user => {
+        const {usersState, user} = this.props;
+        let users = usersState.users.map(d => {
             return (
-                <tr key={user.id}>
-                    <td>{user.firstName}</td>
-                    <td>{user.middleName}</td>
-                    <td>{user.lastName}</td>
+                <tr key={d.id} className={user && user.id === d.id ? styles.active : ""}>
+                    <td>{d.firstName}</td>
+                    <td>{d.middleName}</td>
+                    <td>{d.lastName}</td>
+                    <td>{d.accounts && Array.isArray(d.accounts) ? d.accounts.length : 0}</td>
                     <td className={styles.smallWidth}>
-                        <Link className="btn" to={getPathForUrl(null, {userId: user.id, accounts: false})}>{l('USERS_LIST->CHANGE_LINK')}</Link>
+                        <Link className="btn" to={getPathForUrl(null, {userId: d.id, accounts: false})}>{l('USERS_LIST->CHANGE_LINK')}</Link>
                     </td>
                     <td className={styles.smallWidth}>
-                        <button onClick={this.deleteLink.bind(this, user.id)}>{l('USERS_LIST->DELETE_LINK')}</button>
+                        <button onClick={this.deleteLink.bind(this, d.id)}>{l('USERS_LIST->DELETE_LINK')}</button>
                     </td>
                 </tr>
             );
@@ -51,7 +53,7 @@ class UsersContainer extends Component {
 
         return (
             <div className={styles.list}>
-                <p className={styles.header}>{l('USERS_LIST->HEADER')}</p>
+                <p><span className={styles.header}>{l('USERS_LIST->HEADER')}</span> <Link className={styles.headerLink} to={getPathForUrl(null, {userId: false, accounts: false})}>{l('USERS_LIST->ADD_NEW_USER_LINK')}</Link></p>
                 {
                     users.length ?
                         <table>

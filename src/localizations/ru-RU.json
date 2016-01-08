@@ -3,9 +3,20 @@
     "files": [
       "src/js/components/usersList/UsersList.js"
     ],
+    "id": "6LjGKRbxfq",
+    "key": "USERS_LIST->ADD_NEW_USER_LINK",
+    "new": true,
+    "timestamp": "2016-01-08T01:25:39.745Z",
+    "value": "Добавить нового",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
     "id": "A5Ao9oeXUL",
     "key": "USERS_LIST->ACCOUNTS_COUNT",
-    "new": true,
+    "new": false,
     "timestamp": "2016-01-08T01:09:04.902Z",
     "value": "Кол-во счетов",
     "variables": []

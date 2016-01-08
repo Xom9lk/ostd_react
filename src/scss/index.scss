@@ -16,6 +16,18 @@ html, body {
   background-color: #f5f5f5;
 }
 
+a {
+  color: $action-color;
+  text-decoration: none;
+  transition: color $base-duration $base-timing;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade($action-color, 25%);
+  }
+}
+
 @import "forms";
 @import "tables";
 @import "buttons";

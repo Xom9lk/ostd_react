@@ -2,18 +2,29 @@
   .header {
     font-size: 20px;
     font-weight: 600;
+    margin-right: 10px;
+    line-height: 35px;
   }
+
+  .headerLink {
+    line-height: 35px;
+  }
+
   .footer {
 
   }
 
   .list {
-    width: 700px;
+    width: 800px;
   }
 
   .smallWidth {
     width:1%;
     text-align: center;
     white-space: nowrap;
+  }
+
+  .active {
+    background-color: #c4dfe0;
   }
 }

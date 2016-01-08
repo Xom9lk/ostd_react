@@ -101,11 +101,23 @@ export function updateUser(user) {
                 users = [];
             }
 
-            users = users.map(d => d.id === user.id ? user : d);
+            let newUser = {...user};
+
+            users = users.map(d => {
+                if (d.id === user.id) {
+                    const {accounts} = d;
+                    if (accounts && Array.isArray(accounts)) {
+                        newUser = {...user, accounts};
+                    }
+                    return newUser;
+                } else {
+                    return d;
+                }
+            });
 
             localStorage.setItem('users', JSON.stringify(users));
             const response = {
-                data: {user},
+                data: {user: newUser},
                 status: 200,
                 statusText: 'OK'
             };

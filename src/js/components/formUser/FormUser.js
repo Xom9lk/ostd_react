@@ -7,6 +7,7 @@ import {validateUserForm} from './../../utils/validators.js';
 import * as API from './../../utils/API.js';
 import getPathForUrl from './../../utils/getPathForUrl.js';
 import { Link } from 'react-router';
+import { pushPath } from 'redux-simple-router';
 
 class AddUser extends Component {
     constructor(props) {
@@ -68,16 +69,18 @@ class AddUser extends Component {
                 middleName: form.middleName.value,
                 lastName: form.lastName.value
             };
-            const {user, updateUser, addUser} = this.props;
+            const {user, updateUser, addUser, dispatch} = this.props;
 
             if (user && updateUser) {
                 form.id = user.id;
                 API.updateUser(form).then((response) => {
                     updateUser(response.data.user);
+                    dispatch(pushPath(getPathForUrl(null, {accounts: true})));
                 });
             } else {
                 API.addUser(form).then((response) => {
                     addUser(response.data.user);
+                    dispatch(pushPath(getPathForUrl(null, {accounts: true, userId: response.data.user.id})));
                 });
             }
             this.setState(this.getInitialValidationResults());

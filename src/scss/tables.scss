@@ -14,8 +14,8 @@ th {
   padding-left: $small-spacing;
   text-align: left;
 
-  &:first-child {
-    padding-left: 0;
+  &:last-child {
+    padding-right: $small-spacing;
   }
 }
 
@@ -24,8 +24,8 @@ td {
   padding: $small-spacing 0;
   padding-left: $small-spacing;
 
-  &:first-child {
-    padding-left: 0;
+  &:last-child {
+    padding-right: $small-spacing;
   }
 }
 

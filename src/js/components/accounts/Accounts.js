@@ -43,12 +43,13 @@ class AddUser extends Component {
         }
 
         const {user} = props;
+        let accounts = [];
 
         if (user && user.accounts && Array.isArray(user.accounts)) {
             user.accounts.map(d => d.uid = guid());
             accounts = [...user.accounts];
         }
-        let accounts = accounts.concat([this.getEmptyAccount()]);
+        accounts = accounts.concat([this.getEmptyAccount()]);
 
         this.setState({accounts});
     }

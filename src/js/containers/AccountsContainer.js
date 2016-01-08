@@ -34,7 +34,7 @@ class AccountsContainer extends Component {
         return (
             <div className={styles.view}>
                 <Accounts key={user ? user.id : null} updateUser={actions.updateUser} user={user} dispatch={dispatch} />
-                <UsersList usersState={users} actions={actions} dispatch={dispatch} />
+                <UsersList user={user} usersState={users} actions={actions} dispatch={dispatch} />
             </div>
         );
     }

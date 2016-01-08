@@ -389,6 +389,16 @@
           'GMTFormat': 'GMT{0}'
         }
       },
+      'USERS_LIST->ADD_NEW_USER_LINK': function(it) {
+        var string = '';
+        string += 'Добавить нового';
+        return string;
+      },
+      'USERS_LIST->ACCOUNTS_COUNT': function(it) {
+        var string = '';
+        string += 'Кол-во счетов';
+        return string;
+      },
       'ACCOUNT_FORM->INVALID_ERROR': function(it) {
         var string = '';
         string += 'Ошибка: неправильный формат';

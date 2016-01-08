@@ -34,7 +34,7 @@ class UserContainer extends Component {
         return this.props.children ? this.props.children :(
             <div className={styles.view}>
                 <FormUser key={user ? user.id : null} updateUser={actions.updateUser} addUser={actions.addUser} user={user} dispatch={dispatch} />
-                <UsersList usersState={users} actions={actions} dispatch={dispatch} />
+                <UsersList user = {user} usersState={users} actions={actions} dispatch={dispatch} />
             </div>
         );
     }

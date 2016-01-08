@@ -22,11 +22,12 @@ class UsersContainer extends Component {
 
     render () {
         const { users, actions, dispatch } = this.props;
+        let user = null;
 
         return (
             <div className={styles.view}>
                 <FormUser addUser={actions.addUser} dispatch={dispatch} />
-                <UsersList usersState={users} actions={actions} dispatch={dispatch} />
+                <UsersList  usersState={users} actions={actions} dispatch={dispatch} />
             </div>
         );
     }
