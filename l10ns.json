@@ -1,0 +1,26 @@
+{
+  "defaultProject": "Ostd_react",
+  "projects": {
+    "Ostd_react": {
+      "timezones": [
+        "America/Los_Angeles"
+      ],
+      "currencies": [
+        "USD"
+      ],
+      "interface": {
+        "autoOpen": true,
+        "port": 3001
+      },
+      "languages": {
+        "en-US": "English (US)",
+        "ru-RU": "Russian (RU)"
+      },
+      "defaultLanguage": "en-US",
+      "programmingLanguage": "javascript",
+      "store": "src//localizations//",
+      "output": "src//localizations//output",
+      "source": ["src//**"]
+    }
+  }
+}

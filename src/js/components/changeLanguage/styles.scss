@@ -1,0 +1,11 @@
+:local {
+  .changeLanguage {
+    > label, > select {
+      display: inline-block;
+    }
+  }
+
+  .select {
+    margin-left: 10px;
+  }
+}

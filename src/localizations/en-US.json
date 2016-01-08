@@ -1,0 +1,334 @@
+[
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "A5Ao9oeXUL",
+    "key": "USERS_LIST->ACCOUNTS_COUNT",
+    "new": true,
+    "timestamp": "2016-01-08T01:09:04.902Z",
+    "value": "Accounts count",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "9xGjKEEnt4",
+    "key": "ACCOUNT_FORM->INVALID_ERROR",
+    "new": false,
+    "timestamp": "2016-01-07T23:38:05.350Z",
+    "value": "Error: incorrect format",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "KGKgd77jCp",
+    "key": "ACCOUNT_FORM->REQUIRED_ERROR",
+    "new": false,
+    "timestamp": "2016-01-07T23:38:05.350Z",
+    "value": "Error: field is required",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/accounts/Accounts.js"
+    ],
+    "id": "yxG49A79fg",
+    "key": "ACCOUNTS_LIST->SAVE_ACCOUNTS",
+    "new": false,
+    "timestamp": "2016-01-07T21:54:55.859Z",
+    "value": "Save",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/accounts/Accounts.js"
+    ],
+    "id": "bz9gAbypsk",
+    "key": "ACCOUNTS_LIST->ADD_ACCOUNT_LINK",
+    "new": false,
+    "timestamp": "2016-01-07T21:51:53.690Z",
+    "value": "Add account",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "jKxAqkozIR",
+    "key": "ACCOUNT_FORM->DELETE_LINK",
+    "new": false,
+    "timestamp": "2016-01-07T21:44:07.866Z",
+    "value": "Delete",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "5o6xnLbXU8",
+    "key": "ACCOUNT_FORM->HEADER",
+    "new": false,
+    "timestamp": "2016-01-07T21:39:41.050Z",
+    "value": "Account",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "KGKgd8X4Ig",
+    "key": "ACCOUNT_FORM->BIC",
+    "new": false,
+    "timestamp": "2016-01-07T21:23:43.319Z",
+    "value": "BIC",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/account/Account.js"
+    ],
+    "id": "5o6xnadyt8",
+    "key": "ACCOUNT_FORM->IBAN",
+    "new": false,
+    "timestamp": "2016-01-07T21:23:43.319Z",
+    "value": "IBAN",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/accounts/Accounts.js"
+    ],
+    "id": "yxG4LGjzh6",
+    "key": "ACCOUNTS_FORM->NOT_FOUND_USER_HEADER",
+    "new": false,
+    "timestamp": "2016-01-07T19:21:51.344Z",
+    "value": "Not found user",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/accounts/Accounts.js"
+    ],
+    "id": "qo6xA6y7uo",
+    "key": "ACCOUNTS_FORM->USER_HEADER",
+    "new": false,
+    "timestamp": "2016-01-07T19:21:51.344Z",
+    "value": "Accounts {firstName} {middleName} {lastName}",
+    "variables": [
+      "firstName",
+      "middleName",
+      "lastName"
+    ]
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "9xGjLdK4Sn",
+    "key": "USER_FORM->LINK_TO_ACCOUNT",
+    "new": false,
+    "timestamp": "2016-01-07T18:57:36.710Z",
+    "value": "Accounts",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "dbKgLpd5u9",
+    "key": "USER_FORM->UPDATE_BUTTON",
+    "new": false,
+    "timestamp": "2016-01-07T17:49:46.993Z",
+    "value": "Update",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "zEoKLRKdCy",
+    "key": "USER_FORM->CHANGE_USER_HEADER",
+    "new": false,
+    "timestamp": "2016-01-07T17:26:14.421Z",
+    "value": "User {firstName} {middleName} {lastName}",
+    "variables": [
+      "firstName",
+      "middleName",
+      "lastName"
+    ]
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "7o6xAzxeUa",
+    "key": "USER_FORM->NOT_FOUND_USER_HEADER",
+    "new": false,
+    "timestamp": "2016-01-07T17:26:14.421Z",
+    "value": "Not found user",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "A5Ao4j8zI7",
+    "key": "USER_FORM->INVALID_ERROR",
+    "new": false,
+    "timestamp": "2016-01-07T08:59:21.485Z",
+    "value": "Error: incorrect format",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "6LjGRkobF4",
+    "key": "USER_FORM->REQUIRED_ERROR",
+    "new": false,
+    "timestamp": "2016-01-07T08:59:21.485Z",
+    "value": "Error: field is required",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "KGKggjXMso",
+    "key": "USERS_LIST->USERS_COUNT",
+    "new": false,
+    "timestamp": "2016-01-06T22:23:40.572Z",
+    "value": "{count, plural, =0{No such users} one{One user} other{# users}}",
+    "variables": [
+      "count"
+    ]
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "bz9ggR5nUM",
+    "key": "USERS_LIST->HEADER",
+    "new": false,
+    "timestamp": "2016-01-06T22:18:40.461Z",
+    "value": "Users list",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "8Eo55n4rSg",
+    "key": "USERS_LIST->CHANGE_LINK",
+    "new": false,
+    "timestamp": "2016-01-06T22:18:00.277Z",
+    "value": "Change",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "ejxKKnbdUy",
+    "key": "USERS_LIST->DELETE_LINK",
+    "new": false,
+    "timestamp": "2016-01-06T22:18:00.277Z",
+    "value": "Delete",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "xRoKKaKKUy",
+    "key": "USERS_LIST->DELETE_USER",
+    "new": false,
+    "timestamp": "2016-01-06T21:56:22.269Z",
+    "value": "",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "RydxxaxxSM",
+    "key": "USERS_LIST->SELECT_USER",
+    "new": false,
+    "timestamp": "2016-01-06T21:56:22.269Z",
+    "value": "",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js",
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "MGMggBgxHe",
+    "key": "USER_FORM->FIRST_NAME",
+    "new": false,
+    "timestamp": "2016-01-06T21:11:03.431Z",
+    "value": "First name",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js",
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "gjxKKdKaCE",
+    "key": "USER_FORM->LAST_NAME",
+    "new": false,
+    "timestamp": "2016-01-06T21:11:03.431Z",
+    "value": "Last name",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js",
+      "src/js/components/usersList/UsersList.js"
+    ],
+    "id": "8Eo55r5au4",
+    "key": "USER_FORM->MIDDLE_NAME",
+    "new": false,
+    "timestamp": "2016-01-06T21:11:03.431Z",
+    "value": "Middle name",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "pLjGbKLote",
+    "key": "USER_FORM->ADD_BUTTON",
+    "new": false,
+    "timestamp": "2016-01-06T19:45:58.961Z",
+    "value": "Add",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/formUser/FormUser.js"
+    ],
+    "id": "rLjGbRr8Sj",
+    "key": "USER_FORM->ADD_USER_HEADER",
+    "new": false,
+    "timestamp": "2016-01-06T19:24:03.696Z",
+    "value": "Add user",
+    "variables": []
+  },
+  {
+    "files": [
+      "src/js/components/changeLanguage/ChangeLanguage.js"
+    ],
+    "id": "ajxKpBErFX",
+    "key": "MAIN->CHANGE_LANGUAGE",
+    "new": false,
+    "timestamp": "2016-01-06T17:01:03.118Z",
+    "value": "Change language",
+    "variables": []
+  }
+]

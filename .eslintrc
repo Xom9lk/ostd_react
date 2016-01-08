@@ -1,13 +1,11 @@
 {
+  "parser": "babel-eslint",
   "ecmaFeatures": {
-    "classes": true,
     "modules": true,
     "jsx": true,
-    "generators": true,
     "spread": true,
     "experimentalObjectRestSpread": true,
-    "destructuring": true,
-    "restParams": true
+    "destructuring": true
   },
   "env": {
     "browser": true,
@@ -19,11 +17,10 @@
     "GLOBALS_JS_CSS": {}
   },
   "rules": {
-    "no-trailing-spaces": 2,
-    "react/display-name": 2,
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
     "new-cap": 2,
     "no-empty": 2,
-    "no-shadow": [1, {"builtinGlobals": false, "hoist": "never"}],
+    "no-shadow": [2, {"builtinGlobals": false, "hoist": "never"}],
     "no-unused-vars": [2, {"vars": "local", "args": "after-used", "varsIgnorePattern": "^React$"}],
     "eqeqeq": [2, "smart"],
     "semi": 2

@@ -108,7 +108,7 @@ gulp.task("build:release", ["build-css", "build-js", "build-public", "build-vers
         .pipe(clean());
 });
 
-gulp.task("webpack-dev-server", ["clean-build"], function(callback) {
+gulp.task("webpack-dev-server", ["clean-build", "clean-release"], function(callback) {
     var webpackDevConfig = Object.assign({}, require("./webpack.config.dev"));
     var compiler = webpack(webpackDevConfig);
 
@@ -117,10 +117,7 @@ gulp.task("webpack-dev-server", ["clean-build"], function(callback) {
         hot: true,
         historyApiFallback: true,
         headers: { "X-Custom-Header": "yes" },
-        stats: { colors: true },
-        proxy: {
-            "/api/*": "http://127.0.0.1:8080"
-        }
+        stats: { colors: true }
     }).listen(webpackDevConfig.serverPort, webpackDevConfig.serverHost, function(err) {
         if (err) {
             throw new gutil.PluginError("webpack-dev-server", err);
