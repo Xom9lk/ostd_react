@@ -45,6 +45,8 @@ class AddUser extends Component {
     };
 
     /**
+     * Обновление/добавление пользователя, применение валидации
+     *
      * @param {Event} event
      * */
     onSubmit = (event) => {
@@ -64,6 +66,7 @@ class AddUser extends Component {
 
         const validation = validateUserForm(form);
         if (validation.valid) {
+            // Прошла валидацию
             form = {
                 firstName: form.firstName.value,
                 middleName: form.middleName.value,
@@ -71,6 +74,7 @@ class AddUser extends Component {
             };
             const {user, updateUser, addUser, dispatch} = this.props;
 
+            // Если в props есть user и userUpdate, то команда -> изменить
             if (user && updateUser) {
                 form.id = user.id;
                 API.updateUser(form).then((response) => {
@@ -78,6 +82,7 @@ class AddUser extends Component {
                     dispatch(pushPath(getPathForUrl(null, {accounts: true})));
                 });
             } else {
+                // Добавить пользователя
                 API.addUser(form).then((response) => {
                     addUser(response.data.user);
                     dispatch(pushPath(getPathForUrl(null, {accounts: true, userId: response.data.user.id})));

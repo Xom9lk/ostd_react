@@ -8,6 +8,9 @@ import { validateAccountForm } from './../../utils/validators.js';
 import * as API from './../../utils/API.js';
 import Account from './../account/Account.js';
 
+/**
+ * Генерация uid
+ * */
 function guid() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000)
@@ -18,7 +21,7 @@ function guid() {
         s4() + '-' + s4() + s4() + s4();
 }
 
-class AddUser extends Component {
+class Accounts extends Component {
     constructor(props) {
         super(props);
         this.state = this.getInitialStateValue();
@@ -28,6 +31,9 @@ class AddUser extends Component {
         this.getAccounts();
     }
 
+    /**
+     * Возвращает пустой account
+     * */
     getEmptyAccount() {
         return {
             iban: '',
@@ -37,6 +43,9 @@ class AddUser extends Component {
         };
     }
 
+    /**
+     * Сохраняет в state список Account
+     * */
     getAccounts (props = null) {
         if (!props) {
             props = this.props;
@@ -49,6 +58,7 @@ class AddUser extends Component {
             user.accounts.map(d => d.uid = guid());
             accounts = [...user.accounts];
         }
+        // Добавление пустого Account для заполнения
         accounts = accounts.concat([this.getEmptyAccount()]);
 
         this.setState({accounts});
@@ -70,22 +80,33 @@ class AddUser extends Component {
         dispatch: PropTypes.func.isRequired
     };
 
+    /**
+     * Добавление формы
+     * */
     addAccount = () => {
         this.setState({
             accounts: this.state.accounts.concat([this.getEmptyAccount()])
         });
     };
 
+    /**
+     * Сохранение форм
+     * */
     saveAccounts = () => {
         const forms = document.forms;
         let valid = true;
         let {accounts} = this.state;
         let {user, updateUser} = this.props;
+
+        // Перебор форм
         if (forms && forms.length) {
             for (let i = 0, length = forms.length; i < length; i++) {
                 let d = forms[i];
+
+                // Поиск соответсвующего account из state
                 let account = accounts.filter(g => g.uid === d.uid.value)[0];
                 if (account) {
+                    // Валидация
                     let form = {
                         iban: {
                             value: d.iban.value
@@ -97,6 +118,7 @@ class AddUser extends Component {
 
                     const validation = validateAccountForm(form);
                     if (!validation.valid) {
+                        // Данные проверки в state
                         account.validationResult = validation.form;
                     } else {
                         account.validationResult = null;
@@ -104,6 +126,7 @@ class AddUser extends Component {
                         account.bic = form.bic.value;
                     }
 
+                    // Последняя пустая не должна учитываться
                     if (i === length - 1) {
                         if (length > 1 && !validation.valid) {
                             if (validation.form.iban.required && validation.form.bic.required) {
@@ -118,6 +141,7 @@ class AddUser extends Component {
             }
         }
 
+        // Если валидация прошла, то данные на сервер
         if (valid) {
             API.updateUserAccounts(user, [...accounts]).then((response) => {
                 updateUser(response.data.user);
@@ -129,6 +153,9 @@ class AddUser extends Component {
         this.setState({accounts});
     };
 
+    /**
+     * Удаление account
+     * */
     onDelete = (uid, id) => {
         let {user, updateUser} = this.props;
         let accounts = this.state.accounts.filter(d => {
@@ -141,6 +168,7 @@ class AddUser extends Component {
 
         this.setState({accounts});
 
+        // На сервер изменения (только реальные account)
         API.updateUserAccounts(user, [...accounts.filter(d => d.id)]).then((response) => {
             updateUser(response.data.user);
         });
@@ -177,4 +205,4 @@ class AddUser extends Component {
     }
 }
 
-export default AddUser;
+export default Accounts;
