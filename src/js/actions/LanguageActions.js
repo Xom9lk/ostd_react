@@ -3,7 +3,7 @@
  */
 import * as types from './../actionTypes';
 import * as API from './../utils/API.js';
-import {getUserLanguage} from './../utils/getUserLanguage.js';
+import getUserLanguage from './../utils/getUserLanguage.js';
 
 export function getLanguage(language) {
     return {

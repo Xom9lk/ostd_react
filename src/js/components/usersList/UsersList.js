@@ -22,6 +22,8 @@ class UsersContainer extends Component {
     };
 
     /**
+     * Удаление пользователя
+     *
      * @param {MouseEvent} event
      * @param {Number} id
      * */

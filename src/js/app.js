@@ -9,10 +9,12 @@ import configureStore from './store/configureStore';
 import routeSing  from './utils/routerSing.js';
 const store = configureStore();
 
+// Hash history без ключа
 const history = createHashHistory({
     queryKey: false
 });
 
+// Синхронизация store с history reducer
 syncReduxAndRouter(history, store);
 
 // Контейнеры
@@ -24,6 +26,9 @@ import Users from './containers/UsersContainer.js';
 
 
 // Рендер фейкового роута и сохранение его в контейнер
+//fixme (Золотницкий): пришлось лепить костыль, т.к. нет возможности использовать mixin [Router.State], то нужно иметь экземпляр Роута под рукой
+//После выхода релиза React-router v2 можно избавиться от экземпляра
+//Роут полностью копирует настоящий
 const routes = (
     <Router history={history}>
         <Route path="/" >
@@ -45,6 +50,7 @@ routeSing.set(
     )
 );
 
+// Строится приложение
 ReactDOM.render(
     <Provider store={store}>
         <MyProvider>
