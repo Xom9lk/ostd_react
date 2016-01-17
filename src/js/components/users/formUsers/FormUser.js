@@ -2,18 +2,30 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.scss';
-import {validateUserForm} from './../../utils/validators.js';
-import * as API from './../../utils/API.js';
-import getPathForUrl from './../../utils/getPathForUrl.js';
+import shouldComponentUpdate from 'react-pure-render/function';
+import styles from './FormUser.scss';
+import {validateUserForm} from './../../../utils/validators.js';
+import * as API from './../../../utils/API.js';
+import getPathForUrl from './../../../utils/getPathForUrl.js';
 import { Link } from 'react-router';
-import { pushPath } from 'redux-simple-router';
+import { browserHistory } from 'react-router';
 
-class AddUser extends Component {
+class FormUser extends Component {
+    static displayName = "FormUser";
+    shouldComponentUpdate  = shouldComponentUpdate;
+
     constructor(props) {
         super(props);
         this.state = this.getInitialValidationResults();
     }
+
+    static propTypes = {
+        addUser: PropTypes.func.isRequired,
+        updateUser: PropTypes.func,
+        user: PropTypes.object,
+        l: PropTypes.func.isRequired
+    };
+    
     componentDidMount () {
         const {user, updateUser} = this.props;
         if (user && updateUser) {
@@ -33,18 +45,9 @@ class AddUser extends Component {
         };
     }
 
-    static contextTypes = {
-        l: PropTypes.func.isRequired
-    };
-
-    static propTypes = {
-        addUser: PropTypes.func.isRequired,
-        updateUser: PropTypes.func,
-        user: PropTypes.object,
-        dispatch: PropTypes.func.isRequired
-    };
-
     /**
+     * Обновление/добавление пользователя, применение валидации
+     *
      * @param {Event} event
      * */
     onSubmit = (event) => {
@@ -64,23 +67,26 @@ class AddUser extends Component {
 
         const validation = validateUserForm(form);
         if (validation.valid) {
+            // Прошла валидацию
             form = {
                 firstName: form.firstName.value,
                 middleName: form.middleName.value,
                 lastName: form.lastName.value
             };
-            const {user, updateUser, addUser, dispatch} = this.props;
+            const {user, updateUser, addUser} = this.props;
 
+            // Если в props есть user и userUpdate, то команда -> изменить
             if (user && updateUser) {
                 form.id = user.id;
                 API.updateUser(form).then((response) => {
                     updateUser(response.data.user);
-                    dispatch(pushPath(getPathForUrl(null, {accounts: true})));
+                    browserHistory.push(getPathForUrl({accounts: true}));
                 });
             } else {
+                // Добавить пользователя
                 API.addUser(form).then((response) => {
                     addUser(response.data.user);
-                    dispatch(pushPath(getPathForUrl(null, {accounts: true, userId: response.data.user.id})));
+                    browserHistory.push(getPathForUrl({accounts: true, userId: response.data.user.id}));
                 });
             }
             this.setState(this.getInitialValidationResults());
@@ -90,9 +96,8 @@ class AddUser extends Component {
     };
 
     render () {
-        const {l} = this.context;
-        const {firstName, middleName, lastName} = this.state.validationResult;
-        const {user, updateUser} = this.props;
+        const {l, user, updateUser} = this.props,
+            {firstName, middleName, lastName} = this.state.validationResult;
         let header = <p className={styles.header}>{l('USER_FORM->ADD_USER_HEADER')}</p>;
         if (updateUser) {
             if (user) {
@@ -107,10 +112,10 @@ class AddUser extends Component {
                 }</p>;
             }
         }
-        let linkToAccounts = null;
-        if (user) {
-            linkToAccounts = <Link className="btn" to={getPathForUrl(null, {accounts: true})}>{l('USER_FORM->LINK_TO_ACCOUNT')}</Link>;
-        }
+        const linkToAccounts = (user)
+            ? <Link className="btn" to={getPathForUrl({accounts: true})}>{l('USER_FORM->LINK_TO_ACCOUNT')}</Link>
+            : null;
+        
         return (
             <form className={styles.form} ref="user" onSubmit={this.onSubmit} method="post">
                 <fieldset>
@@ -144,4 +149,4 @@ class AddUser extends Component {
     }
 }
 
-export default AddUser;
+export default FormUser;

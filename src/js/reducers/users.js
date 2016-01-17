@@ -21,11 +21,11 @@ function usersState(state = initialState, action = {}) {
     switch (action.type) {
         case types.USERS_ADD_USER:
         {
-            let {usersById, users} = state,
+            const {usersById, users} = state,
                 {user} = action;
 
             return {
-                users: users.concat(user),
+                users: users.concat(user.id),
                 usersById: {
                     ...usersById,
                     [user.id]: {
@@ -39,41 +39,9 @@ function usersState(state = initialState, action = {}) {
 
         case types.USERS_UPDATE_USER:
         {
-            let {usersById, users} = state,
+            const {usersById, users} = state,
                 {user} = action;
-            usersById = {...usersById};
-            users = [...users];
-            usersById[user.id] = user;
-            users = users.map(d => (d.id === user.id) ? user : d);
-
-            return {
-                users: users,
-                usersById: usersById,
-                loading: state.loading,
-                loaded: state.loaded
-            };
-        }
-
-        case types.USERS_DELETE_USER:
-        {
-            let {usersById, users} = state;
-            let newUsersById = {...usersById};
-            delete newUsersById[action.id];
-            return {
-                users: users.filter(user => user.id !== action.id),
-                usersById: newUsersById,
-                loading: state.loading,
-                loaded: state.loaded
-            };
-        }
-
-        case types.USERS_GET_USERS:
-        {
-            const {users} = action;
-            let usersById = {};
-            users.map(user => {
-                usersById[user.id] = user;
-            });
+            usersById[user.id] = {...user};
 
             return {
                 users: [...users],
@@ -83,11 +51,40 @@ function usersState(state = initialState, action = {}) {
             };
         }
 
+        case types.USERS_DELETE_USER:
+        {
+            const {usersById, users} = state;
+            delete usersById[action.id];
+            return {
+                users: users.filter(id => id !== action.id),
+                usersById: {...usersById},
+                loading: state.loading,
+                loaded: state.loaded
+            };
+        }
+
+        case types.USERS_GET_USERS:
+        {
+            const usersList = action.users;
+            const usersById = {};
+            const users = usersList.map(user => {
+                usersById[user.id] = user;
+                return user.id;
+            });
+
+            return {
+                users: [...users],
+                usersById: usersById,
+                loading: state.loading,
+                loaded: state.loaded
+            };
+        }
+
         case types.USERS_START_LOADING:
         {
-            const {usersById} = state;
+            const {usersById, users} = state;
             return {
-                users: [...state.users],
+                users: [...users],
                 usersById: {
                     ...usersById
                 },
@@ -98,9 +95,9 @@ function usersState(state = initialState, action = {}) {
 
         case types.USERS_STOP_LOADING:
         {
-            const {usersById} = state;
+            const {usersById, users} = state;
             return {
-                users: [...state.users],
+                users: [...users],
                 usersById: {
                     ...usersById
                 },
@@ -116,3 +113,4 @@ function usersState(state = initialState, action = {}) {
 }
 
 export default usersState;
+export const name = 'usersState';

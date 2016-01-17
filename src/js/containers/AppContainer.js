@@ -28,6 +28,9 @@ class AppContainer extends Component {
     }
 }
 
+/**
+ * Запись языковых функций в контекст
+ * */
 class LanguageProvider extends Component {
     static propTypes = {
         language: PropTypes.string
@@ -42,11 +45,13 @@ class LanguageProvider extends Component {
         let {language} = this.props;
         let func = null;
         if (!language) {
+            // Пустая функция
             func = function () {
                 return "";
             };
             language = "";
         } else {
+            // Функция клонируется
             func = localizations(language).bind({});
         }
         return {l: func, language};

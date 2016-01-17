@@ -9,11 +9,20 @@ const initialParams = {
     accounts: undefined
 };
 
+/**
+ * Получить строку path
+ * Если параметры объекта params равны null или undefined, то параметр берется из текущего состояния
+ *
+ * @param {?object} propsParams текущие данные params
+ * @param {?object} [params=initialParams] новые данные params
+ * */
 export default function (propsParams, params = initialParams) {
     if (!propsParams) {
         propsParams = routerSing.get().state.params;
     }
     let path = '';
+
+    // language
     if (params.language === undefined) {
         if (!propsParams.language || propsParams.language === "") {
             return path;
@@ -26,6 +35,7 @@ export default function (propsParams, params = initialParams) {
         path += `/${params.language}`;
     }
 
+    // userId
     if (params.userId === undefined) {
         if (!propsParams.userId || propsParams.userId === "") {
             return path;
@@ -38,6 +48,7 @@ export default function (propsParams, params = initialParams) {
         path += `/users/${params.userId}`;
     }
 
+    // accounts
     if (params.accounts === undefined) {
         const state = routerSing.get().state;
         if (state.routes.filter(d => d.name === 'accounts')[0]) {

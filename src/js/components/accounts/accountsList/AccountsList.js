@@ -2,10 +2,11 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.scss';
+import shouldComponentUpdate from 'react-pure-render/function';
+import styles from './AccountsList.scss';
 
-import { validateAccountForm } from './../../utils/validators.js';
-import * as API from './../../utils/API.js';
+import { validateAccountForm } from './../../../utils/validators.js';
+import * as API from './../../../utils/API.js';
 import Account from './../account/Account.js';
 
 /**
@@ -21,11 +22,19 @@ function guid() {
         s4() + '-' + s4() + s4() + s4();
 }
 
-class Accounts extends Component {
+class AccountsList extends Component {
+    static displayName = "AccountsList";
+    shouldComponentUpdate  = shouldComponentUpdate;
     constructor(props) {
         super(props);
-        this.state = this.getInitialStateValue();
+        this.state = {accounts : []};
     }
+
+    static propTypes = {
+        updateUser: PropTypes.func,
+        user: PropTypes.object,
+        l: PropTypes.func.isRequired
+    };
 
     componentWillMount () {
         this.getAccounts();
@@ -64,22 +73,6 @@ class Accounts extends Component {
         this.setState({accounts});
     }
 
-    getInitialStateValue () {
-        return {
-            accounts : []
-        };
-    }
-
-    static contextTypes = {
-        l: PropTypes.func.isRequired
-    };
-
-    static propTypes = {
-        updateUser: PropTypes.func,
-        user: PropTypes.object,
-        dispatch: PropTypes.func.isRequired
-    };
-
     /**
      * Добавление формы
      * */
@@ -96,7 +89,7 @@ class Accounts extends Component {
         const forms = document.forms;
         let valid = true;
         let {accounts} = this.state;
-        let {user, updateUser} = this.props;
+        const {user, updateUser} = this.props;
 
         // Перебор форм
         if (forms && forms.length) {
@@ -175,21 +168,26 @@ class Accounts extends Component {
     };
 
     render () {
-        const {l} = this.context;
-        const {user, updateUser} = this.props;
+        const {user, updateUser, l} = this.props;
         const {accounts} = this.state;
-        let header = <p className={styles.header}>{ l('ACCOUNTS_FORM->NOT_FOUND_USER_HEADER')}</p>;
-        if (updateUser) {
-            if (user) {
-                header = <p className={styles.header}>{
-                    l('ACCOUNTS_FORM->USER_HEADER', {
-                        firstName: user.firstName, middleName: user.middleName, lastName: user.lastName
-                    })
-                }</p>;
-            }
-        }
+        const header = (updateUser && user)
+            ? (
+                <p className={styles.header}>
+                    {
+                        l('ACCOUNTS_FORM->USER_HEADER', {
+                            firstName: user.firstName, middleName: user.middleName, lastName: user.lastName
+                        })
+                    }
+                </p>
+            )
+            : <p className={styles.header}>{ l('ACCOUNTS_FORM->NOT_FOUND_USER_HEADER')}</p>;
+
         const accountsList = accounts.map(account => {
-            return <Account onDelete={this.onDelete} key={account.id === null ? account.uid : account.id} uid={account.uid} user={user} updateUser={updateUser} account={account} />;
+            return <Account
+                l={l}
+                key={account.id === null ? account.uid : account.id}
+                onDelete={this.onDelete}
+                account={account} />;
         });
         return (
             <div className={styles.accounts} ref="accounts">
@@ -205,4 +203,4 @@ class Accounts extends Component {
     }
 }
 
-export default Accounts;
+export default AccountsList;

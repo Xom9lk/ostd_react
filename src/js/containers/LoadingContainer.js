@@ -15,7 +15,6 @@ import { languages } from './../../constants.js';
 import getPathForUrl from './../utils/getPathForUrl.js';
 
 class LoadingContainer extends Component {
-
     static propTypes = {
         users: PropTypes.object.isRequired,
         languageLoading: PropTypes.bool.isRequired,
@@ -32,30 +31,38 @@ class LoadingContainer extends Component {
         this.loadData(nextProps);
     }
 
+    /**
+     * Загружаются все необходимые данные
+     * */
     loadData (props = this.props) {
         const {dispatch, languageActions, usersActions, languageLoading} = props;
         const {language} = props.params;
         const languageFromState = props.language;
         const usersData = props.users;
-        // Язык
+        // Загружается язык, если языка нет, то пытается подобрать подходящий
         if (!languageLoading) {
             if (languageFromState && !language) {
+                // Нужно синхронизировать url
                 let path = getPathForUrl(props.params, {language: languageFromState});
                 dispatch(replacePath(path));
             } else if (languageFromState && language && languageFromState !== language) {
+                // Нужно синхронизировать state из url, если такой язык есть
                 if (languages.filter(d => d.name === language)[0]) {
                     languageActions.setLanguageAsync(language);
                     return true;
                 } else {
+                    // если такого языка нет, то пытается подобрать подходящий и синхронизирует url
                     let path = getPathForUrl(props.params, {language: languageFromState});
                     dispatch(replacePath(path));
                 }
             } else if (!language || !languageFromState) {
+                // Загрузка языка
                 languageActions.getLanguageAsync();
                 return true;
             }
         }
 
+        // Загрузка данных пользователя
         if (!usersData.loading) {
             if (!usersData.loaded) {
                 usersActions.getUsersAsync();

@@ -2,54 +2,45 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
+import shouldComponentUpdate from 'react-pure-render/function';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as UsersActions from '../actions/UsersActions.js';
 
-import UsersList from '../components/usersList/UsersList.js';
-import FormUser from '../components/formUser/FormUser.js';
-
-import styles from './styles/app.scss';
+import User from './../components/users/User';
 
 class UserContainer extends Component {
-    static contextTypes = {
-        l: PropTypes.func.isRequired
-    };
+    static displayName = "UserContainer";
+    shouldComponentUpdate  = shouldComponentUpdate;
 
     static propTypes = {
-        users: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired
+        l: PropTypes.func.isRequired,
+        usersState: PropTypes.object.isRequired,
+        usersActions: PropTypes.object.isRequired
     };
 
     render () {
         const userId = +this.props.params.userId;
-        const { users, actions, dispatch } = this.props;
-        let user = null;
-        if (users.usersById.hasOwnProperty(userId)) {
-            user = users.usersById[userId];
-        }
+        const { usersState, usersActions, l } = this.props;
+        const user = (usersState.usersById.hasOwnProperty(userId)) ? usersState.usersById[userId] : null;
 
-        return this.props.children ? this.props.children :(
-            <div className={styles.view}>
-                <FormUser key={user ? user.id : null} updateUser={actions.updateUser} addUser={actions.addUser} user={user} dispatch={dispatch} />
-                <UsersList user = {user} usersState={users} actions={actions} dispatch={dispatch} />
-            </div>
-        );
+        return this.props.children
+            ? this.props.children
+            : <User l={l} user={user} usersState={usersState} usersActions={usersActions} />;
     }
 }
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        usersState: state.usersState,
+        l: state.l
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(UsersActions, dispatch),
-        dispatch
+        usersActions: bindActionCreators(UsersActions, dispatch)
     };
 }
 

@@ -43,6 +43,13 @@ export function validateUserForm (form) {
         form
     };
 }
+
+/**
+ * @param {Object} form
+ * @param {{value: string}} form.iban
+ * @param {{value: string}} form.bic
+ * @returns {{valid: Boolean, form: Object}}
+ * */
 export function validateAccountForm (form) {
     let valid = true;
     valid &= testString(form.iban, IBAN.isValid(form.iban.value));

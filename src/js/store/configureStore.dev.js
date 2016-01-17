@@ -7,7 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
 
 import rootReducer from "./../rootReducer.js";
-import DevTools from "./../containers/DevToolsContainer.js";
+import {DevTools} from "./../containers/DevToolsContainer.js";
 
 const finalCreateStore = compose(
     // Middleware you want to use in development:

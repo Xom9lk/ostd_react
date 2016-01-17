@@ -1,9 +1,8 @@
 /**
  * Created by Игорь on 03.01.2016.
  */
-import React from 'react';
-
-// Exported from redux-devtools
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { createDevTools } from 'redux-devtools';
 
 // Monitors are separate packages, and you can make a custom one
@@ -21,8 +20,12 @@ var DevTools = createDevTools(
     </DockMonitor>
 );
 
-if (process.env.NODE_ENV === 'production') {
-    DevTools = null;
+
+class DevToolsComponent extends Component {
+    render () {
+        return process.env.NODE_ENV === 'production'? null : <DevTools />;
+    }
 }
 
-export default DevTools;
+export default connect()(DevToolsComponent);
+export {DevTools};
