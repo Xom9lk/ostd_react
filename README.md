@@ -1,14 +1,15 @@
-# Веб-интерфейс для проекта OSTD
+# Веб-интерфейс для проекта
 
 Короткое описание проекта.
 
-Стэк: webpack, gulp, React, Redux, React-Router, l10ns
+Стек: webpack, gulp, React, Redux, React-Router, l10ns
 
 ## Как собрать?
 
-Для сборки требуются глобально установленные Node.js, Gulp.js
+Для сборки требуются глобально установленные Node.js, Gulp.js, L10ns
 
 `npm install -g gulp`
+`npm install -g l10ns`
 
 Тестировалось на Node.js v5
 
