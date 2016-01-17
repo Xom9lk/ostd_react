@@ -46,3 +46,4 @@ function languageState(state = initialState, action = {}) {
 }
 
 export default languageState;
+export const name = 'languageData';

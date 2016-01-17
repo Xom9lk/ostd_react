@@ -1,11 +1,22 @@
 [
   {
     "files": [
+      "src/js/containers/LoadingContainer.js"
+    ],
+    "id": "kG9zXjqxUbr",
+    "key": "LANGUAGE",
+    "new": true,
+    "timestamp": "2016-03-27T18:21:52.837Z",
+    "value": "ru-RU",
+    "variables": []
+  },
+  {
+    "files": [
       "src/js/components/usersList/UsersList.js"
     ],
     "id": "6LjGKRbxfq",
     "key": "USERS_LIST->ADD_NEW_USER_LINK",
-    "new": true,
+    "new": false,
     "timestamp": "2016-01-08T01:25:39.745Z",
     "value": "Добавить нового",
     "variables": []

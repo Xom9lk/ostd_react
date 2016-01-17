@@ -2,12 +2,17 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.scss';
+import shouldComponentUpdate from 'react-pure-render/function';
+import styles from './Account.scss';
 
 class Account extends Component {
+    static displayName = "Account";
+    shouldComponentUpdate  = shouldComponentUpdate;
 
-    static contextTypes = {
-        l: PropTypes.func.isRequired
+    static propTypes = {
+        account: PropTypes.object.isRequired,
+        l: PropTypes.func.isRequired,
+        onDelete: PropTypes.func.isRequired
     };
 
     componentDidMount () {
@@ -40,8 +45,7 @@ class Account extends Component {
     };
 
     render () {
-        const {l} = this.context;
-        const {user, account} = this.props;
+        const {account, l} = this.props;
         const {uid} = account;
         let iban = null,
             bic = null;

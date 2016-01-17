@@ -7,4 +7,8 @@ require("normalize.css");
 require("./scss/index.scss");
 
 // js
-require("./js/app.js");
+try {
+    require("./js/app.js");
+} catch (e) {
+    console.error(e);
+}

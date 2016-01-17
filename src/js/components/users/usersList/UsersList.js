@@ -2,23 +2,21 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.scss';
+import shouldComponentUpdate from 'react-pure-render/function';
+import styles from './UsersList.scss';
 import { Link } from 'react-router';
 
-import getPathForUrl from './../../utils/getPathForUrl.js';
+import getPathForUrl from './../../../utils/getPathForUrl.js';
 
-class UsersContainer extends Component {
-    static contextTypes = {
-        l: PropTypes.func.isRequired,
-        location: PropTypes.any,
-        history: PropTypes.any
-    };
-
+class UsersList extends Component {
+    static displayName = "UsersList";
+    shouldComponentUpdate  = shouldComponentUpdate;
+    
     static propTypes = {
         usersState: PropTypes.object.isRequired,
         user: PropTypes.object,
         actions: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired
+        l: PropTypes.func.isRequired
     };
 
     /**
@@ -34,20 +32,20 @@ class UsersContainer extends Component {
     }
 
     render () {
-        const {l} = this.context;
-        const {usersState, user} = this.props;
-        let users = usersState.users.map(d => {
+        const {l, usersState, user} = this.props;
+        let users = usersState.users.map(userId => {
+            let u = usersState.usersById[userId];
             return (
-                <tr key={d.id} className={user && user.id === d.id ? styles.active : ""}>
-                    <td>{d.firstName}</td>
-                    <td>{d.middleName}</td>
-                    <td>{d.lastName}</td>
-                    <td>{d.accounts && Array.isArray(d.accounts) ? d.accounts.length : 0}</td>
+                <tr key={u.id} className={user && user.id === u.id ? styles.active : ""}>
+                    <td>{u.firstName}</td>
+                    <td>{u.middleName}</td>
+                    <td>{u.lastName}</td>
+                    <td>{u.accounts && Array.isArray(u.accounts) ? u.accounts.length : 0}</td>
                     <td className={styles.smallWidth}>
-                        <Link className="btn" to={getPathForUrl(null, {userId: d.id, accounts: false})}>{l('USERS_LIST->CHANGE_LINK')}</Link>
+                        <Link className="btn" to={getPathForUrl({userId: u.id, accounts: false})}>{l('USERS_LIST->CHANGE_LINK')}</Link>
                     </td>
                     <td className={styles.smallWidth}>
-                        <button onClick={this.deleteLink.bind(this, d.id)}>{l('USERS_LIST->DELETE_LINK')}</button>
+                        <button onClick={this.deleteLink.bind(this, u.id)}>{l('USERS_LIST->DELETE_LINK')}</button>
                     </td>
                 </tr>
             );
@@ -55,7 +53,7 @@ class UsersContainer extends Component {
 
         return (
             <div className={styles.list}>
-                <p><span className={styles.header}>{l('USERS_LIST->HEADER')}</span> <Link className={styles.headerLink} to={getPathForUrl(null, {userId: false, accounts: false})}>{l('USERS_LIST->ADD_NEW_USER_LINK')}</Link></p>
+                <p><span className={styles.header}>{l('USERS_LIST->HEADER')}</span> <Link className={styles.headerLink} to={getPathForUrl({userId: false, accounts: false})}>{l('USERS_LIST->ADD_NEW_USER_LINK')}</Link></p>
                 {
                     users.length ?
                         <table>
@@ -80,4 +78,4 @@ class UsersContainer extends Component {
     }
 }
 
-export default UsersContainer;
+export default UsersList;

@@ -2,47 +2,41 @@
  * Created by Игорь on 03.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
+import shouldComponentUpdate from 'react-pure-render/function';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as UsersActions from '../actions/UsersActions.js';
 
-import UsersList from '../components/usersList/UsersList.js';
-import FormUser from '../components/formUser/FormUser.js';
-
-import styles from './styles/app.scss';
+import Users from '../components/users/Users.js';
 
 class UsersContainer extends Component {
-
+    static displayName = "UsersContainer";
+    shouldComponentUpdate  = shouldComponentUpdate;
+    
     static propTypes = {
-        users: PropTypes.object.isRequired,
-        actions: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired
+        usersState: PropTypes.object.isRequired,
+        usersActions: PropTypes.object.isRequired,
+        l: PropTypes.func.isRequired
     };
 
     render () {
-        const { users, actions, dispatch } = this.props;
-        let user = null;
+        const { l, usersState, usersActions } = this.props;
 
-        return (
-            <div className={styles.view}>
-                <FormUser addUser={actions.addUser} dispatch={dispatch} />
-                <UsersList  usersState={users} actions={actions} dispatch={dispatch} />
-            </div>
-        );
+        return <Users l={l} usersState={usersState} usersActions={usersActions} />;
     }
 }
 
 function mapStateToProps(state) {
     return {
-        users: state.users
+        usersState: state.usersState,
+        l: state.l
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(UsersActions, dispatch),
-        dispatch
+        usersActions: bindActionCreators(UsersActions, dispatch)
     };
 }
 

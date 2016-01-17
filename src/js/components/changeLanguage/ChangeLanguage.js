@@ -2,42 +2,45 @@
  * Created by Игорь on 06.01.2016.
  */
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.scss';
-import { pushPath } from 'redux-simple-router';
+import shouldComponentUpdate from 'react-pure-render/function';
+import {connect} from 'react-redux';
+import { browserHistory } from 'react-router';
+import styles from './ChangeLanguage.scss';
 
 import { languages } from './../../../constants.js';
 import getPathForUrl from './../../utils/getPathForUrl.js';
 
-export default class extends Component {
-
-    static contextTypes = {
-        l: PropTypes.func.isRequired
-    };
-
+class ChangeLanguage extends Component {
+    static displayName = "ChangeLanguage";
+    shouldComponentUpdate  = shouldComponentUpdate;
+    
     static propTypes = {
         language: PropTypes.string,
-        dispatch: PropTypes.func.isRequired,
-        params: PropTypes.object
+        l: PropTypes.func.isRequired
     };
 
     /**
      * @param {MouseEvent} event
      * */
     onChangeLanguage = (event) => {
-        const {dispatch, params} = this.props;
-        const path = getPathForUrl(params, {language: event.target.value});
-        dispatch(pushPath(path));
+        const path = getPathForUrl({language: event.target.value});
+        browserHistory.push(path);
     };
 
     render () {
-        const {l} = this.context;
+        const {l, language} = this.props;
         return (
             <div className={styles.changeLanguage}>
                     <label htmlFor={styles.select}>{l('MAIN->CHANGE_LANGUAGE')}:</label>
-                    <select name="change-language" className={styles.select} id={styles.select} onChange={this.onChangeLanguage} value={this.props.language}>
+                    <select
+                        name="change-language"
+                        className={styles.select}
+                        id={styles.select}
+                        onChange={this.onChangeLanguage}
+                        value={language}>
                         {
                             languages.map(
-                                    d => (
+                                d => (
                                     <option
                                         value={d.name}
                                         key={d.name}>
@@ -51,3 +54,12 @@ export default class extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        l: state.l,
+        language: state.languageData.language
+    };
+}
+
+export default connect(mapStateToProps)(ChangeLanguage);

@@ -1,7 +1,7 @@
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var clean = require("gulp-rimraf");
-var childprocess = require("child_process");
+var childProcess = require("child_process");
 var htmlreplace = require("gulp-html-replace");
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
@@ -51,10 +51,22 @@ gulp.task("webpack-build", ["clean-release"], function(callback) {
 });
 
 /**
+ * Запуск команды для компиляции языковых файлов
+ * */
+gulp.task("app-localizations", function (callback) {
+    childProcess.exec("l10ns compile", function (execError) {
+        if (execError) {
+            return callback(execError);
+        }
+        callback();
+    });
+});
+
+/**
  * Запуск команды для получения версии приложения
  * */
 gulp.task("app-version", function (callback) {
-    childprocess.exec("git describe", function (execError, stdout) {
+    childProcess.exec("git describe", function (execError, stdout) {
         if (execError) {
             return callback(execError);
         }
@@ -103,12 +115,12 @@ gulp.task("build-version", ["clean-release", "app-version"], function () {
  * Удаление папки build
  * Сборка production версии
  * */
-gulp.task("build:release", ["build-css", "build-js", "build-public", "build-version"], function () {
+gulp.task("build:release", ["build-css", "build-js", "app-localizations", "build-public", "build-version"], function () {
     return gulp.src(buildFolder, {read: false})
         .pipe(clean());
 });
 
-gulp.task("webpack-dev-server", ["clean-build", "clean-release"], function(callback) {
+gulp.task("webpack-dev-server", ["clean-build", "app-localizations", "clean-release"], function(callback) {
     var webpackDevConfig = Object.assign({}, require("./webpack.config.dev"));
     var compiler = webpack(webpackDevConfig);
 

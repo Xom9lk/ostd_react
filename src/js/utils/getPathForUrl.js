@@ -1,7 +1,7 @@
 /**
  * Created by Игорь on 06.01.2016.
  */
-import routerSing from './routerSing.js';
+import * as routerData from './../data/routerData';
 
 const initialParams = {
     language: undefined,
@@ -16,18 +16,17 @@ const initialParams = {
  * @param {?object} propsParams текущие данные params
  * @param {?object} [params=initialParams] новые данные params
  * */
-export default function (propsParams, params = initialParams) {
-    if (!propsParams) {
-        propsParams = routerSing.get().state.params;
-    }
+export default function (params = initialParams) {
+    const currentParams = routerData.get().params,
+        routesList = routerData.get().routes;
     let path = '';
 
     // language
     if (params.language === undefined) {
-        if (!propsParams.language || propsParams.language === "") {
+        if (!currentParams.language || currentParams.language === "") {
             return path;
         } else {
-            path += `/${propsParams.language}`;
+            path += `/${currentParams.language}`;
         }
     } else if (params.language === false) {
         return path;
@@ -37,10 +36,10 @@ export default function (propsParams, params = initialParams) {
 
     // userId
     if (params.userId === undefined) {
-        if (!propsParams.userId || propsParams.userId === "") {
+        if (!currentParams.userId || currentParams.userId === "") {
             return path;
         } else {
-            path += `/users/${propsParams.userId}`;
+            path += `/users/${currentParams.userId}`;
         }
     } else if (params.userId === false) {
         return path;
@@ -50,8 +49,7 @@ export default function (propsParams, params = initialParams) {
 
     // accounts
     if (params.accounts === undefined) {
-        const state = routerSing.get().state;
-        if (state.routes.filter(d => d.name === 'accounts')[0]) {
+        if (routesList.filter(d => d.name === 'accounts')[0]) {
             path += `/accounts`;
         } else {
             return path;

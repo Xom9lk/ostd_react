@@ -4,6 +4,7 @@
 import * as types from './../actionTypes';
 import * as API from './../utils/API.js';
 import getUserLanguage from './../utils/getUserLanguage.js';
+import localizations from './../../localizations/output/all.js';
 
 export function getLanguage(language) {
     return {
@@ -56,5 +57,19 @@ export function setLanguageAsync(language) {
                 dispatch(setLanguage(language));
             });
 
+    };
+}
+
+export function loadLanguageFunc(l) {
+    return {
+        type: types.LANGUAGE_LOAD_FUNC,
+        func: l
+    };
+}
+
+export function loadLanguageFuncAsync(language) {
+    return dispatch => {
+        return new Promise(resolve => resolve(localizations(language)))
+            .then(l => dispatch(loadLanguageFunc(l)));
     };
 }
